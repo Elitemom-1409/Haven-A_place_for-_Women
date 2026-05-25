@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haven — A Safe Space for New Beginnings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'dusty-rose': '#D4A0A0',
+        'soft-sage': '#A8BFA0',
+        'warm-ivory': '#FFF8F0',
+        'charcoal': '#2D2D2D',
+        'accent-gold': '#C9A96E',
+        'light-gray': '#F5F0EB',
+        'medium-gray': '#B8B0A8',
+        'error-red': '#C45B5B',
+        'success-green': '#6B9E78',
+        'info-blue': '#7BA3C4',
+        'dark-base': '#1E1225',
+        'dark-surface': '#2A1D33',
+        'dark-elevated': '#352640',
+        'blush-pink': '#E8B4B8',
+        'lavender-mist': '#D4C4DD',
+        'terracotta': '#C78D6B',
+        'sage-deep': '#8FA888',
+        'champagne': '#F0E6D3',
+      },
+      fontFamily: {
+        heading: ['"Instrument Serif"', 'Georgia', 'serif'],
+        body: ['"Inter"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
+      }
+    }
+  }
+}
+</script>
+<style>
+  * { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; overflow-x: hidden; }
+  .font-heading { font-family: 'Instrument Serif', Georgia, serif; }
+
+  /* ===== GLASSMORPHISM CORE ===== */
+  .glass {
+    background: rgba(255, 248, 240, 0.25);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(45, 45, 45, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  .glass-dark {
+    background: rgba(30, 18, 37, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 24px rgba(45, 45, 45, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(201, 169, 110, 0.4);
+    box-shadow: 0 12px 40px rgba(45, 45, 45, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: translateY(-4px) scale(1.01);
+  }
+  .glass-hero {
+    background: rgba(255, 248, 240, 0.15);
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 25px 80px rgba(45, 45, 45, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px rgba(45, 45, 45, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  /* ===== CINEMATIC TRANSITIONS ===== */
+  .page-section { display: none; opacity: 0; }
+  .page-section.active { 
+    display: block; 
+    animation: cinematicEnter 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; 
+  }
+  @keyframes cinematicEnter {
+    0% { opacity: 0; transform: translateY(40px) scale(0.98); filter: blur(8px); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  }
+
+  /* ===== FLUID MOVEMENTS ===== */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-12px) rotate(1deg); }
+    66% { transform: translateY(6px) rotate(-0.5deg); }
+  }
+  .animate-float { animation: float 8s ease-in-out infinite; }
+  .animate-float-delay { animation: float 10s ease-in-out infinite 2s; }
+  .animate-float-slow { animation: float 12s ease-in-out infinite 4s; }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+  }
+  .animate-breathe { animation: breathe 6s ease-in-out infinite; }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.4) 50%, transparent 75%);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite linear;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee { animation: marquee 40s linear infinite; }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  /* ===== PHOTO MASKS & EFFECTS ===== */
+  .photo-mask {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  .photo-cinematic {
+    transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .photo-cinematic:hover {
+    transform: scale(1.08);
+    filter: brightness(1.05);
+  }
+
+  /* ===== EASTER EGG STYLES ===== */
+  .konami-active { filter: hue-rotate(180deg) saturate(1.5); transition: filter 1s ease; }
+  .secret-glow { 
+    box-shadow: 0 0 30px rgba(201, 169, 110, 0.6), 0 0 60px rgba(212, 160, 160, 0.4); 
+  }
+  .hidden-message { 
+    opacity: 0; 
+    transition: opacity 0.5s ease; 
+    cursor: help; 
+  }
+  .hidden-message:hover { opacity: 1; }
+  .easter-egg-trigger { position: relative; }
+  .easter-egg-trigger::after {
+    content: '✨';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    font-size: 12px;
+  }
+  .easter-egg-trigger:hover::after { opacity: 1; transform: scale(1.2); }
+  .secret-heart { cursor: pointer; transition: transform 0.3s ease; }
+  .secret-heart:hover { transform: scale(1.3); }
+  .rainbow-text {
+    background: linear-gradient(90deg, #D4A0A0, #A8BFA0, #C9A96E, #7BA3C4, #C45B5B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: gradientShift 3s linear infinite;
+  }
+
+  /* ===== CUSTOM SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(184, 176, 168, 0.5); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(184, 176, 168, 0.8); }
+
+  /* ===== MOBILE TAB BAR ===== */
+  .mobile-tab-active { color: #C9A96E; }
+  .mobile-tab-active svg { fill: currentColor; stroke: none; }
+
+  /* ===== FOOTER ENHANCEMENTS ===== */
+  .footer-wave {
+    position: absolute;
+    top: -60px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60'%3E%3Cpath fill='%232D2D2D' d='M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z'/%3E%3C/svg%3E");
+    background-size: cover;
+  }
+
+  /* ===== REDUCED MOTION ===== */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* ===== DARK MODE ===== */
+  .dark body { background: #1E1225; color: #FFF8F0; }
+  .dark .glass { background: rgba(42, 29, 51, 0.4); border-color: rgba(255,255,255,0.1); }
+  .dark .glass-card { background: rgba(42, 29, 51, 0.3); border-color: rgba(255,255,255,0.15); }
+  .dark .glass-hero { background: rgba(42, 29, 51, 0.25); border-color: rgba(255,255,255,0.2); }
+</style>
+</head>
+<body class="bg-warm-ivory text-charcoal antialiased">
+
+<!-- ===== DYNAMIC BACKGROUND ORBS ===== -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+  <div class="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-dusty-rose/20 blur-[100px] animate-breathe"></div>
+  <div class="absolute top-1/3 -right-40 w-[500px] h-[500px] rounded-full bg-soft-sage/15 blur-[120px] animate-breathe" style="animation-delay: 2s;"></div>
+  <div class="absolute -bottom-40 left-1/4 w-[700px] h-[700px] rounded-full bg-accent-gold/10 blur-[140px] animate-breathe" style="animation-delay: 4s;"></div>
+  <div class="absolute top-1/2 left-1/2 w-[400px] h-[400px] rounded-full bg-lavender-mist/20 blur-[100px] animate-breathe" style="animation-delay: 1s;"></div>
+  <div class="absolute top-20 right-1/3 w-[300px] h-[300px] rounded-full bg-blush-pink/15 blur-[80px] animate-breathe" style="animation-delay: 3s;"></div>
+</div>
+
+<!-- ===== GLASSMORPHIC NAVIGATION ===== -->
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="height: 80px;">
+  <div class="absolute inset-0 glass border-b border-white/30"></div>
+  <div class="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+    <!-- Logo with Easter Egg -->
+    <a href="#" onclick="showPage('landing')" class="easter-egg-trigger group flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-dusty-rose to-soft-sage flex items-center justify-center text-white font-heading text-xl shadow-lg group-hover:rotate-12 transition-transform duration-300 relative overflow-hidden">
+        <span class="relative z-10">H</span>
+        <div class="absolute inset-0 bg-gradient-to-br from-accent-gold to-dusty-rose opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      </div>
+      <span class="font-heading text-2xl text-charcoal tracking-tight">Haven</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden lg:flex items-center gap-1 glass rounded-full px-2 py-1.5">
+      <a href="#" onclick="showPage('about')" class="px-4 py-2 rounded-full text-sm font-medium text-charcoal/70 hover:text-charcoal hover:bg-white/40 transition-all duration-300">About</a>
+      <a href="#" onclick="showPage('stories')" class="px-4 py-2 rounded-full text-sm font-medium text-charcoal/70 hover:text-charcoal hover:bg-white/40 transition-all duration-300">Stories</a>
+      <a href="#" onclick="showPage('events')" class="px-4 py-2 rounded-full text-sm font-medium text-charcoal/70 hover:text-charcoal hover:bg-white/40 transition-all duration-300">Events</a>
+      <a href="#" onclick="showPage('services')" class="px-4 py-2 rounded-full text-sm font-medium text-charcoal/70 hover:text-charcoal hover:bg-white/40 transition-all duration-300">Services</a>
+      <a href="#" onclick="showPage('resources')" class="px-4 py-2 rounded-full text-sm font-medium text-charcoal/70 hover:text-charcoal hover:bg-white/40 transition-all duration-300">Resources</a>
+    </nav>
+
+    <!-- Right Actions -->
+    <div class="hidden lg:flex items-center gap-3">
+      <button onclick="toggleTheme()" class="w-10 h-10 rounded-full glass flex items-center justify-center text-charcoal hover:bg-white/40 transition-all" title="Toggle theme (Secret: press 'D')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="#" onclick="showPage('login')" class="px-5 py-2.5 rounded-full text-sm font-medium text-charcoal/80 hover:text-charcoal hover:bg-white/30 transition-all">Sign In</a>
+      <a href="#" onclick="showPage('register')" class="px-5 py-2.5 rounded-full bg-accent-gold text-charcoal text-sm font-medium hover:bg-accent-gold/80 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">Join Haven</a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 rounded-full glass flex items-center justify-center">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 right-0 glass-dark border-t border-white/10 p-6 space-y-2">
+    <a href="#" onclick="showPage('about'); toggleMobileMenu()" class="block px-4 py-3 rounded-xl text-warm-ivory/80 hover:text-warm-ivory hover:bg-white/10 transition-all">About</a>
+    <a href="#" onclick="showPage('stories'); toggleMobileMenu()" class="block px-4 py-3 rounded-xl text-warm-ivory/80 hover:text-warm-ivory hover:bg-white/10 transition-all">Stories</a>
+    <a href="#" onclick="showPage('events'); toggleMobileMenu()" class="block px-4 py-3 rounded-xl text-warm-ivory/80 hover:text-warm-ivory hover:bg-white/10 transition-all">Events</a>
+    <a href="#" onclick="showPage('services'); toggleMobileMenu()" class="block px-4 py-3 rounded-xl text-warm-ivory/80 hover:text-warm-ivory hover:bg-white/10 transition-all">Services</a>
+    <a href="#" onclick="showPage('resources'); toggleMobileMenu()" class="block px-4 py-3 rounded-xl text-warm-ivory/80 hover:text-warm-ivory hover:bg-white/10 transition-all">Resources</a>
+    <div class="pt-4 flex flex-col gap-2">
+      <a href="#" onclick="showPage('login'); toggleMobileMenu()" class="block text-center py-3 rounded-xl border border-white/20 text-warm-ivory">Sign In</a>
+      <a href="#" onclick="showPage('register'); toggleMobileMenu()" class="block text-center py-3 rounded-xl bg-accent-gold text-charcoal font-medium">Join Haven</a>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== LANDING PAGE ==================== -->
+<div id="page-landing" class="page-section active relative z-10">
+  <!-- Hero Section with Dynamic Photo -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1920&q=80" 
+           alt="Women supporting each other" 
+           class="w-full h-full object-cover opacity-50 scale-110"
+           style="animation: float 20s ease-in-out infinite;">
+      <div class="absolute inset-0 bg-gradient-to-b from-warm-ivory/30 via-warm-ivory/50 to-warm-ivory"></div>
+    </div>
+
+    <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass mb-10 animate-float">
+        <span class="w-2 h-2 rounded-full bg-success-green animate-pulse"></span>
+        <span class="text-sm font-medium text-charcoal">A Safe Space for New Beginnings</span>
+      </div>
+
+      <h1 class="font-heading text-6xl md:text-8xl text-charcoal mb-8 leading-[0.95] tracking-tight">
+        <span class="hero-word inline-block opacity-0">You're</span>
+        <span class="hero-word inline-block opacity-0">Not</span>
+        <span class="hero-word inline-block opacity-0">Starting</span><br class="hidden md:block">
+        <span class="hero-word inline-block opacity-0">Over.</span>
+        <span class="hero-word inline-block opacity-0">You're</span><br class="hidden md:block">
+        <span class="hero-word inline-block opacity-0 text-dusty-rose italic">Starting</span>
+        <span class="hero-word inline-block opacity-0 text-accent-gold italic">Stronger.</span>
+      </h1>
+
+      <p class="text-xl md:text-2xl text-charcoal/70 max-w-2xl mx-auto mb-12 leading-relaxed opacity-0 hero-subtitle font-light">
+        Haven connects divorced and separating women with community, 
+        <span class="relative inline-block">
+          employment
+          <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 100 8" preserveAspectRatio="none"><path d="M0 7 Q50 0 100 7" stroke="#C9A96E" stroke-width="2" fill="none"/></svg>
+        </span>, 
+        and the support you deserve.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 hero-cta">
+        <button onclick="showPage('register')" class="group relative px-10 py-5 rounded-2xl bg-accent-gold text-charcoal font-medium text-lg overflow-hidden shadow-2xl hover:shadow-accent-gold/30 transition-all duration-500 hover:-translate-y-1">
+          <span class="relative z-10 flex items-center gap-2">
+            Join Haven
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </span>
+          <div class="absolute inset-0 bg-gradient-to-r from-accent-gold via-champagne to-accent-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        </button>
+        <button onclick="showPage('about')" class="px-10 py-5 rounded-2xl glass text-charcoal font-medium text-lg hover:bg-white/40 transition-all duration-300">
+          Learn More
+        </button>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+        <span class="text-xs uppercase tracking-widest text-charcoal/50">Scroll</span>
+        <div class="w-6 h-10 rounded-full border-2 border-charcoal/30 flex items-start justify-center p-1.5">
+          <div class="w-1.5 h-3 rounded-full bg-charcoal/50 animate-bounce"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof Bar -->
+  <section class="py-10 relative z-10">
+    <div class="glass rounded-2xl max-w-[1400px] mx-4 lg:mx-auto px-8 py-6 flex flex-col md:flex-row items-center gap-8">
+      <p class="text-sm font-medium text-charcoal whitespace-nowrap flex-shrink-0">
+        Trusted by <span class="text-accent-gold font-bold text-lg">10,000+</span> women
+      </p>
+      <div class="relative overflow-hidden flex-1 w-full">
+        <div class="flex gap-16 animate-marquee whitespace-nowrap">
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">Women's Shelter Alliance</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">Career Forward</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">Wellness Collective</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">Legal Aid Society</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">New Beginnings Fund</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">Sisterhood Network</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">EmpowerHer Foundation</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">Rise Together</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">Women's Shelter Alliance</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">Career Forward</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">Wellness Collective</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">Legal Aid Society</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">New Beginnings Fund</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">Sisterhood Network</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">EmpowerHer Foundation</span>
+          <span class="font-heading text-charcoal/30 text-lg hover:text-charcoal/60 transition-colors duration-300 cursor-default">Rise Together</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-24 relative z-10">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-20">
+        <span class="text-accent-gold text-sm font-medium uppercase tracking-widest">Your Journey</span>
+        <h2 class="font-heading text-5xl md:text-6xl text-charcoal mt-4">Three Steps to Your<br><span class="italic text-dusty-rose">New Community</span></h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 relative">
+        <div class="hidden md:block absolute top-24 left-[16%] right-[16%] h-px">
+          <div class="h-full bg-gradient-to-r from-transparent via-accent-gold/50 to-transparent"></div>
+        </div>
+
+        <div class="gs-reveal group relative">
+          <div class="glass-card rounded-3xl p-8 text-center h-full hover:scale-[1.02]">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-dusty-rose/20 to-blush-pink/10 flex items-center justify-center text-3xl shadow-inner group-hover:scale-110 transition-transform duration-500">👤</div>
+            <span class="text-6xl font-heading text-charcoal/5 absolute top-4 right-6">01</span>
+            <h3 class="font-heading text-2xl text-charcoal mb-3">Create Your Profile</h3>
+            <p class="text-medium-gray leading-relaxed">Share your journey and interests in a safe, private space designed for you.</p>
+          </div>
+        </div>
+
+        <div class="gs-reveal group relative">
+          <div class="glass-card rounded-3xl p-8 text-center h-full hover:scale-[1.02]">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-soft-sage/20 to-sage-deep/10 flex items-center justify-center text-3xl shadow-inner group-hover:scale-110 transition-transform duration-500">👥</div>
+            <span class="text-6xl font-heading text-charcoal/5 absolute top-4 right-6">02</span>
+            <h3 class="font-heading text-2xl text-charcoal mb-3">Find Your People</h3>
+            <p class="text-medium-gray leading-relaxed">Connect with women who understand your experience and share your interests.</p>
+          </div>
+        </div>
+
+        <div class="gs-reveal group relative">
+          <div class="glass-card rounded-3xl p-8 text-center h-full hover:scale-[1.02]">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-accent-gold/20 to-champagne/10 flex items-center justify-center text-3xl shadow-inner group-hover:scale-110 transition-transform duration-500">✨</div>
+            <span class="text-6xl font-heading text-charcoal/5 absolute top-4 right-6">03</span>
+            <h3 class="font-heading text-2xl text-charcoal mb-3">Thrive Together</h3>
+            <p class="text-medium-gray leading-relaxed">Access resources, events, and opportunities to build your next chapter.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Bento with Dynamic Photos -->
+  <section class="py-24 relative z-10">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-accent-gold text-sm font-medium uppercase tracking-widest">Platform</span>
+        <h2 class="font-heading text-5xl md:text-6xl text-charcoal mt-4">Everything You Need,<br><span class="italic">In One Place</span></h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 auto-rows-[200px]">
+        <!-- Large Feature Card with Photo -->
+        <div class="glass-card col-span-1 sm:col-span-2 row-span-2 rounded-3xl overflow-hidden relative group cursor-pointer" onclick="showPage('community')">
+          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80" alt="Women in community" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-8">
+            <span class="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-medium backdrop-blur-sm">Community</span>
+            <h3 class="font-heading text-3xl text-white mt-3 mb-2">Find Your Circle</h3>
+            <p class="text-white/80 text-sm max-w-md">Private, moderated groups for every stage of your journey. Share, heal, and grow together.</p>
+          </div>
+        </div>
+
+        <!-- Events Card -->
+        <div class="glass-card col-span-1 sm:col-span-2 rounded-3xl overflow-hidden relative group cursor-pointer" onclick="showPage('events')">
+          <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&q=80" alt="Events and gatherings" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+          <div class="absolute inset-0 bg-gradient-to-r from-charcoal/70 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 p-6">
+            <span class="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-medium backdrop-blur-sm">Events</span>
+            <h3 class="font-heading text-2xl text-white mt-2">Events & Hikes</h3>
+          </div>
+        </div>
+
+        <!-- Job Board -->
+        <div class="glass-card rounded-3xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white/30" onclick="showPage('dashboard')">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-gold/20 to-champagne/30 flex items-center justify-center mb-4 text-3xl shadow-sm">💼</div>
+          <h3 class="font-heading text-xl text-charcoal mb-1">Job Board</h3>
+          <p class="text-xs text-medium-gray">240+ open positions</p>
+          <div class="mt-4 flex -space-x-2">
+            <div class="w-8 h-8 rounded-full bg-dusty-rose/30 border-2 border-white"></div>
+            <div class="w-8 h-8 rounded-full bg-soft-sage/30 border-2 border-white"></div>
+            <div class="w-8 h-8 rounded-full bg-accent-gold/30 border-2 border-white"></div>
+          </div>
+        </div>
+
+        <!-- Services -->
+        <div class="glass-card rounded-3xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white/30" onclick="showPage('services')">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-soft-sage/20 to-sage-deep/20 flex items-center justify-center mb-4 text-3xl shadow-sm">🤝</div>
+          <h3 class="font-heading text-xl text-charcoal mb-1">Services</h3>
+          <p class="text-xs text-medium-gray">Vetted providers</p>
+        </div>
+
+        <!-- Story Card -->
+        <div class="glass-card col-span-1 sm:col-span-2 rounded-3xl p-8 bg-gradient-to-br from-soft-sage/10 to-blush-pink/5 border-soft-sage/20">
+          <svg class="w-10 h-10 text-soft-sage/40 mb-4" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+          <blockquote class="font-heading text-2xl text-charcoal italic leading-relaxed mb-6">
+            "Haven gave me the courage to rebuild my career and my confidence. I found sisters I never knew I needed."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Sarah M." class="w-12 h-12 rounded-full object-cover ring-2 ring-white shadow-md">
+            <div>
+              <p class="font-medium text-charcoal">Sarah M.</p>
+              <p class="text-xs text-medium-gray">Member since 2024 • Denver, CO</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Affirmation -->
+        <div class="glass-card rounded-3xl p-6 flex flex-col justify-center items-center text-center bg-gradient-to-br from-accent-gold/10 to-dusty-rose/5">
+          <div class="text-4xl mb-4 animate-float">✨</div>
+          <p class="font-heading text-xl text-charcoal italic leading-relaxed">"I am stronger than my struggles and wiser than my pain."</p>
+          <p class="text-xs text-medium-gray mt-3 uppercase tracking-widest">Daily Affirmation</p>
+        </div>
+
+        <!-- Resources -->
+        <div class="glass-card rounded-3xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white/30" onclick="showPage('resources')">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-info-blue/10 to-lavender-mist/20 flex items-center justify-center mb-4 text-3xl shadow-sm">📚</div>
+          <h3 class="font-heading text-xl text-charcoal mb-1">Resources</h3>
+          <p class="text-xs text-medium-gray">6 categories</p>
+        </div>
+
+        <!-- Safety -->
+        <div class="glass-card rounded-3xl p-6 flex flex-col items-center justify-center text-center bg-gradient-to-br from-success-green/10 to-soft-sage/5">
+          <div class="text-3xl mb-3">🛡️</div>
+          <h3 class="font-heading text-lg text-charcoal">100% Verified</h3>
+          <p class="text-xs text-medium-gray mt-1">Safe & Private</p>
+          <div class="mt-3 flex gap-1">
+            <svg class="w-4 h-4 text-accent-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 text-accent-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 text-accent-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 text-accent-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-4 h-4 text-accent-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Stats with Glass Cards -->
+  <section class="py-24 relative z-10">
+    <div class="absolute inset-0 bg-gradient-to-br from-dusty-rose/10 via-lavender-mist/10 to-soft-sage/10"></div>
+    <div class="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-accent-gold text-sm font-medium uppercase tracking-widest">Impact</span>
+        <h2 class="font-heading text-5xl md:text-6xl text-charcoal mt-4">Our Community<br><span class="italic text-soft-sage">By Numbers</span></h2>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass-card rounded-3xl p-8 text-center group hover:scale-105">
+          <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">💜</div>
+          <div class="font-heading text-5xl text-accent-gold mb-2 counter" data-target="12500">0</div>
+          <div class="text-sm font-medium text-charcoal/70">Women Connected</div>
+        </div>
+        <div class="glass-card rounded-3xl p-8 text-center group hover:scale-105">
+          <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">📅</div>
+          <div class="font-heading text-5xl text-accent-gold mb-2 counter" data-target="3200">0</div>
+          <div class="text-sm font-medium text-charcoal/70">Events Hosted</div>
+        </div>
+        <div class="glass-card rounded-3xl p-8 text-center group hover:scale-105">
+          <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">💼</div>
+          <div class="font-heading text-5xl text-accent-gold mb-2 counter" data-target="850">0</div>
+          <div class="text-sm font-medium text-charcoal/70">Women Employed</div>
+        </div>
+        <div class="glass-card rounded-3xl p-8 text-center group hover:scale-105">
+          <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">🌍</div>
+          <div class="font-heading text-5xl text-accent-gold mb-2 counter" data-target="200">0</div>
+          <div class="text-sm font-medium text-charcoal/70">Cities Reached</div>
+        </div>
+      </div>
+      <p class="text-center text-lg text-charcoal/60 max-w-3xl mx-auto mt-16 leading-relaxed">
+        Our mission is to ensure no woman walks through separation or divorce alone. 
+        Haven is built by women who have been there, for women who are there now.
+      </p>
+    </div>
+  </section>
+
+  <!-- Testimonials with Photos -->
+  <section class="py-24 relative z-10">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-accent-gold text-sm font-medium uppercase tracking-widest">Community Voices</span>
+        <h2 class="font-heading text-5xl md:text-6xl text-charcoal mt-4">Hear From Our<br><span class="italic text-soft-sage">Sisters</span></h2>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <div id="testimonial-container" class="relative min-h-[350px]">
+          <div class="testimonial-slide glass-hero rounded-3xl p-10 md:p-16 text-center">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-accent-gold/20 shadow-xl">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt="Michelle" class="w-full h-full object-cover">
+            </div>
+            <blockquote class="font-heading text-2xl md:text-3xl text-charcoal leading-relaxed mb-8">
+              "I was terrified to start over at 45. Haven connected me with women who became my lifeline. Six months later, I have a new job, a hiking group, and friends who truly get it."
+            </blockquote>
+            <div>
+              <p class="font-medium text-charcoal text-lg">Michelle R.</p>
+              <p class="text-sm text-medium-gray">Member since 2023 • Denver, CO</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center gap-3 mt-8">
+          <button onclick="setTestimonial(0)" class="testimonial-dot w-3 h-3 rounded-full bg-accent-gold transition-all duration-300" style="width: 32px;" data-index="0"></button>
+          <button onclick="setTestimonial(1)" class="testimonial-dot w-3 h-3 rounded-full bg-charcoal/20 hover:bg-charcoal/40 transition-all duration-300" data-index="1"></button>
+          <button onclick="setTestimonial(2)" class="testimonial-dot w-3 h-3 rounded-full bg-charcoal/20 hover:bg-charcoal/40 transition-all duration-300" data-index="2"></button>
+          <button onclick="setTestimonial(3)" class="testimonial-dot w-3 h-3 rounded-full bg-charcoal/20 hover:bg-charcoal/40 transition-all duration-300" data-index="3"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="py-24 relative z-10">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="glass-card rounded-3xl p-16 text-center relative overflow-hidden animate-gradient" style="background: linear-gradient(135deg, rgba(201,169,110,0.2) 0%, rgba(212,160,160,0.15) 50%, rgba(168,191,160,0.2) 100%); background-size: 200% 200%;">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-accent-gold/10 rounded-full blur-[80px]"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-dusty-rose/10 rounded-full blur-[80px]"></div>
+        <div class="relative z-10">
+          <h2 class="font-heading text-5xl md:text-6xl text-charcoal mb-6">Ready to Find Your<br><span class="italic text-accent-gold">Haven?</span></h2>
+          <p class="text-xl text-charcoal/70 mb-10 max-w-2xl mx-auto">Join thousands of women building their next chapter together. Your community is waiting.</p>
+          <button onclick="showPage('register')" class="px-12 py-5 rounded-2xl bg-charcoal text-warm-ivory font-medium text-lg hover:bg-charcoal/90 transition-all shadow-2xl hover:shadow-charcoal/20 hover:-translate-y-1">
+            Get Started Free →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
